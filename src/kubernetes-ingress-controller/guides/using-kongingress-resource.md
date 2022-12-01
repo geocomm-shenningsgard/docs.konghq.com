@@ -36,7 +36,7 @@ proxy behavior.
 > but this is still in development and `upstream` is not officially
 > deprecated yet.
 
-{% endif_version -%}
+{% endif_version %}
 
 ## Installation
 
