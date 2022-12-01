@@ -252,7 +252,7 @@ meaning it will be executed for every request that is proxied via Kong.
 > available, it is the preferred means of configuring that setting, and the
 > annotation value will take precedence over a KongIngress value if both set
 > the same setting.
-{% endif_version -%}
+{% endif_version %}
 {% if_version gte:2.8.x -%}
 
 {:.note}
@@ -271,7 +271,7 @@ meaning it will be executed for every request that is proxied via Kong.
 > but this is still in development and `upstream` is not yet officially
 > deprecated.
 
-{% endif_version -%}
+{% endif_version %}
 
 Ingress resource spec in Kubernetes can define routing policies
 based on HTTP Host header and paths.
