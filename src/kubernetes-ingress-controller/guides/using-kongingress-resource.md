@@ -5,7 +5,7 @@ title: Using KongIngress resource
 In this guide, we will learn how to use KongIngress resource to control
 proxy behavior.
 
-{% if_version lte:2.7.x -%}
+{% if_version lte:2.7.x %}
 
 {:.note}
 > **Note:** Many fields available on KongIngress are also available as
@@ -17,8 +17,8 @@ proxy behavior.
 > the same setting. This guide focuses on settings that can only be set using
 > KongIngress.
 
-{% endif_version -%}
-{% if_version gte:2.8.x -%}
+{% endif_version %}
+{% if_version gte:2.8.x %}
 
 {:.note}
 > As of version 2.8, KongIngress sections other than `upstream` are
@@ -365,11 +365,12 @@ for the health check fields.
 
 ## Use KongIngress with Ingress resource
 
-{% if_version gte:2.8.x -%}
+{% if_version gte:2.8.x %}
 {:.note}
 > As of version 2.8, this configuration is deprecated in favor of the
 > `konghq.com/headers` annotation. The [Routing by Header](/kubernetes-ingress-controller/{{page.kong_version}}/guides/routing-by-header)
 > guide covers the modern version of this configuration.
+
 {% endif_version %}
 
 Kong can match routes based on request headers. For example, you can have two
