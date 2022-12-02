@@ -9,6 +9,11 @@ restricting paths and transforming requests.
 Please see the [concept](/kubernetes-ingress-controller/{{page.kong_version}}/concepts/custom-resources/#KongPlugin)
 document for understanding the purpose of `KongPlugin` resource.
 
+{:.important}
+> The controller does not validate configuration by default. Although not required for this guide, production instances
+> should [enable the admission controller](/kubernetes-ingress-controller/{{page.kong_version}}/deployment/admission-webhook)
+> to validate plugins.
+
 ## Installation
 
 Please follow the [deployment](/kubernetes-ingress-controller/{{page.kong_version}}/deployment/overview) documentation to install
@@ -277,9 +282,32 @@ Via: kong/2.8.1
 Here, we have successfully set up a plugin which is executed only when a
 request matches a specific `Ingress` rule.
 
-### Storing plugin configuration in a Secret
+## Storing plugin configuration in a Secret
 
-The plugin above can be modified to store its configuration in a secret:
+You can store plugin configuration in a Secret to secure sensitive configuration. To do so, first create a Secret
+with a key for each field you wish to configure:
+
+```sh
+echo '
+apiVersion: v1
+kind: Secret
+metadata:
+  name: plugin-conf-secret
+stringData:
+  add-response-header: |
+    add:
+      headers:
+        - "demo: injected-by-kong"
+type: Opaque
+' | kubectl apply -f -
+```
+
+The output is similar to the following:
+```
+secret/plugin-conf-secret created
+```
+
+Then, create a KongPlugin with a `configFrom` field referring that Secret:
 
 ```sh
 echo '
@@ -295,18 +323,14 @@ plugin: response-transformer
 ' | kubectl apply -f -
 ```
 
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: plugin-conf-secret
-stringData:
-  add-response-header: |
-    add:
-      headers:
-        - "demo: injected-by-kong"
-type: Opaque
+The output is similar to the following:
 ```
+kongplugin.configuration.konghq.com/add-response-header created
+```
+
+{:.important}
+> KongPlugins can only reference Secrets in their same namespace. KongClusterPlugins have an additional `configFrom.namespace`
+> field indicating the Secret's namespace.
 
 ## Configuring plugins on Service resource
 
@@ -469,10 +493,6 @@ credentials:
 ```
 kongconsumer.configuration.konghq.com/harry configured
 ```
-
-**Please note:** validation of the configuration fields is left to the user
-by default. It is advised to setup and use the admission validating controller
-to catch user errors.
 
 Note the annotation being added to the `KongConsumer` resource.
 
