@@ -150,5 +150,5 @@ items:
         url: /references/prometheus
       - text: Feature Gates
         url: /references/feature-gates
-      - text: Supported Gateway API Features
+      - text: Gateway API Support
         url: /references/gateway-api-support
