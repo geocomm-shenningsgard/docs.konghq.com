@@ -277,7 +277,7 @@ Via: kong/2.8.1
 Here, we have successfully set up a plugin which is executed only when a
 request matches a specific `Ingress` rule.
 
-### Storing Plugin's configuration in a secret
+### Storing plugin configuration in a Secret
 
 The plugin above can be modified to store its configuration in a secret:
 
