@@ -133,7 +133,7 @@ items:
       - text: CLI Arguments
         url: /references/cli-arguments
       - text: Custom Resource Definitions
-        url: /references/custom-resources
+        url: /references/custom-resources/api_lte_2.6.x
       - text: Plugin Compatibility
         url: /references/plugin-compatibility
       - text: Version Compatibility
